@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "185122947596",
+    "firebase_url": "https://myfood-e4264-default-rtdb.firebaseio.com",
+    "project_id": "myfood-e4264",
+    "storage_bucket": "myfood-e4264.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185122947596:android:991d23cccff4566f596429",
+        "android_client_info": {
+          "package_name": "com.example.myfood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCM1RKwj81w31dCoILO6MVs5RhbUdMwblI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

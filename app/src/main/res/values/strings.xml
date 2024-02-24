@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Myfood</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string-array name="City">
+        <item> Nador </item>
+        <item> Fes </item>
+        <item> Meknes </item>
+        <item> Sale </item>
+        <item> Agadir </item>
+        <item> Tangier </item>
+        <item> Hoceima </item>
+        <item> Rabat</item>
+    </string-array>
+
+    <string-array name="shiper">
+        <item> shipper 1 </item>
+        <item> shipper 2</item>
+    </string-array>
+
+    <string-array name="DishName">
+        <item> Pizza</item>
+        <item> Pasta</item>
+        <item> Lasagna</item>
+        <item> Tacos</item>
+        <item> Sandwiche</item>
+        <item> Salad </item>
+        <item>special homemade dish </item>
+    </string-array>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_transform">Transform</string>
+    <string name="menu_reflow">Reflow</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_settings">Settings</string>
+
+    <string name="lorem_ipsum_title">Lorem Ipsum"</string>
+    <string name="lorem_ipsum">Lorem Ipsum is simply placeholder text of the printing and
+        typesetting industry. Lorem Ipsum has been the industry\'s standard placeholder text ever
+        since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+        type specimen book"
+    </string>
+    <string name="fab_content_description">Represents a view to invoke an action</string>
+    <string name="image_view_item_transform_content_description">Represents an image view in the
+        item
+    </string>
+
+</resources>

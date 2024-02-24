@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgfood"
+    tools:context=".Chefloginphone">
+
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="280dp"
+        android:layout_height="446dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="210dp"
+        android:alpha="0.8"
+        android:background="@drawable/background_shape"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="30dp"
+            android:text="Verify phone number"
+            android:textColor="@color/DarkBlue"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/CountryCode"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            app:ccp_defaultNameCode="MA"
+            app:ccp_showFlag="true"
+            />
+
+        <EditText
+            android:id="@+id/number"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="8dp"
+            android:inputType="number" />
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/darkgreen"
+            android:text="Send OTP"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/acsignup"
+            android:layout_marginTop="13dp"
+            android:text="Don't Have An Account? SignUp"
+            android:textAlignment="center"
+            android:textColor="@color/DarkBlue"
+            android:textSize="16sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TableRow
+                android:id="@+id/hr"
+                android:layout_width="103dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#090909"/>
+            <TextView
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/OR"
+                android:text="OR"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textColor="#090909"/>
+            <TableRow
+                android:id="@+id/dr"
+                android:layout_width="103dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#090909"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/signphone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="11dp"
+            android:text="Login with"
+            android:textAlignment="center"
+            android:textColor="#090909"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnemail"
+            android:layout_width="105dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="13dp"
+            android:backgroundTint="@color/blueish"
+            android:padding="10dp"
+            android:text="Email"
+            android:textColor="#FFFF" />
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
