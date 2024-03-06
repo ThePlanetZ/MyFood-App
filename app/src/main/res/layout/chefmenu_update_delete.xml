@@ -36,7 +36,7 @@
             android:textAllCaps="false"
             android:layout_marginTop="2dp"
             android:gravity="center_vertical"
-            android:layout_marginBottom="9dp" />
+            android:layout_marginBottom="2dp" />
 
         <TableRow
             android:id="@+id/hr"

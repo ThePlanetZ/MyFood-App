@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.myfood.R;
@@ -17,6 +18,7 @@ public class CustomerCartFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_customercart, null);
         getActivity().setTitle("Cart");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         return v;
     }
 

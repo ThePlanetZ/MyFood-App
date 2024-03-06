@@ -17,6 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Cheflogin extends AppCompatActivity {
 
@@ -67,10 +72,8 @@ public class Cheflogin extends AppCompatActivity {
                                     mDialog.dismiss();
 
                                     if (Fauth.getCurrentUser().isEmailVerified()) {
-                                        Toast.makeText(Cheflogin.this, "Congratulation! You Have Successfully Login", Toast.LENGTH_SHORT).show();
-                                        Intent Z = new Intent(Cheflogin.this, ChefFoodPanel_BottomNavigation.class);
-                                        startActivity(Z);
-                                        finish(); //  finish the current login activity
+                                        retrieveUserRole();
+
                                     } else {
                                         ReusableCodeForAll.ShowAlert(Cheflogin.this, "Verification Failed", "You Have Not Verified Your Email");
                                     }
@@ -103,6 +106,50 @@ public class Cheflogin extends AppCompatActivity {
         }
 
     }
+
+    private void retrieveUserRole() {
+        DatabaseReference userRoleRef = FirebaseDatabase.getInstance().getReference("User")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        userRoleRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String role = snapshot.child("Role").getValue(String.class);
+
+                    if ("Chef".equals(role)) {
+                        Toast.makeText(Cheflogin.this, "Congratulation! You Have Successfully Logged In", Toast.LENGTH_SHORT).show();
+                        Intent Z = new Intent(Cheflogin.this, ChefFoodPanel_BottomNavigation.class);
+                        startActivity(Z);
+                        finish(); //  finish the current login activity
+                    } else if ("Customer".equals(role)) {
+                        Toast.makeText(Cheflogin.this, "Customers are not allowed to log in here", Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut(); // Sign out the user explicitly
+                        startActivity(new Intent(Cheflogin.this, MainMenu.class));
+                        finish(); // Finish the current login activity
+                    } else if ("DeliveryPerson".equals(role)) {
+                        Toast.makeText(Cheflogin.this, "EDelivery persons are not allowed to log in here", Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut(); // Sign out the user explicitly
+                        startActivity(new Intent(Cheflogin.this, MainMenu.class));
+                        finish(); // Finish the current login activity
+                    } else {
+                        Toast.makeText(Cheflogin.this, "Error: Invalid user role", Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut(); // Sign out the user explicitly
+                    }
+                } else {
+                    Toast.makeText(Cheflogin.this, "Error: User data not found", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle database error if needed
+            }
+        });
+    }
+
+
+
     String emailpattern  = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     public boolean isValid(){

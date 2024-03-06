@@ -19,7 +19,8 @@ public class DeliveryFoodPanel_BottomNavigation extends AppCompatActivity implem
         setContentView(R.layout.activity_delivery_food_panel_bottom_navigation);
         BottomNavigationView navigationView = findViewById(R.id.delivery_bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
-
+      // Set the default fragment (ChefHomeFragment) when the activity starts
+        loaddeliveryfragment(new DeliveryPendingOrderFragment());
 
     }
 

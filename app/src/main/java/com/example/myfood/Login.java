@@ -17,6 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
@@ -57,7 +62,7 @@ public class Login extends AppCompatActivity {
                         final ProgressDialog mDialog = new ProgressDialog(Login.this);
                         mDialog.setCanceledOnTouchOutside(false);
                         mDialog.setCancelable(false);
-                        mDialog.setMessage("Sign In Please Wait.......");
+                        mDialog.setMessage("Sign In Please Wait...");
                         mDialog.show();
 
                         Fauth.signInWithEmailAndPassword(emailid,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -69,10 +74,8 @@ public class Login extends AppCompatActivity {
 
                                     if(Fauth.getCurrentUser().isEmailVerified()){
                                         mDialog.dismiss();
-                                        Toast.makeText(Login.this, "Congratulation! You Have Successfully Login", Toast.LENGTH_SHORT).show();
-                                        Intent Z = new Intent(Login.this,CustomerFoofPanel_BottomNavigation.class);
-                                        startActivity(Z);
-                                        finish();
+                                        retrieveCustomerUserRole();
+
 
                                     }else{
                                         ReusableCodeForAll.ShowAlert(Login.this,"Verification Failed","You Have Not Verified Your Email");
@@ -87,6 +90,9 @@ public class Login extends AppCompatActivity {
                     }
                 }
             });
+
+
+
             signup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -106,6 +112,47 @@ public class Login extends AppCompatActivity {
             Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
         }
 
+
+    }
+    private void retrieveCustomerUserRole() {
+        DatabaseReference userRoleRef = FirebaseDatabase.getInstance().getReference("User")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        userRoleRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String role = snapshot.child("Role").getValue(String.class);
+
+                    if ("Customer".equals(role)) {
+                        Toast.makeText(Login.this, "Congratulation! You Have Successfully Logged In", Toast.LENGTH_SHORT).show();
+                        Intent Z = new Intent(Login.this, CustomerFoofPanel_BottomNavigation.class);
+                        startActivity(Z);
+                        finish(); // Finish the current login activity
+                    } else if ("Chef".equals(role)) {
+                        Toast.makeText(Login.this, "Chefs are not allowed to log in here", Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut(); // Sign out the user explicitly
+                        startActivity(new Intent(Login.this, MainMenu.class));
+                        finish(); // Finish the current login activity
+                    } else if ("DeliveryPerson".equals(role)) {
+                        Toast.makeText(Login.this, "Delivery persons are not allowed to log in here", Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut(); // Sign out the user explicitly
+                        startActivity(new Intent(Login.this, MainMenu.class));
+                        finish(); // Finish the current login activity
+                    } else {
+                        Toast.makeText(Login.this, "Error: Invalid user role", Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut(); // Sign out the user explicitly
+                    }
+                } else {
+                    Toast.makeText(Login.this, "Error: User data not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle database error if needed
+            }
+        });
     }
     String emailpattern  = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
