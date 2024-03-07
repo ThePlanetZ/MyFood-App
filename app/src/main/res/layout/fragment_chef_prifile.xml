@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
         <ImageView
@@ -25,7 +25,7 @@
             android:id="@+id/logoutIcon"
             android:layout_width="42dp"
             android:layout_height="50dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="660dp"
             android:layout_marginEnd="4dp"
             android:src="@drawable/logout_icon"
             app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +121,7 @@
                     android:id="@+id/profileName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:paddingRight="20dp"
@@ -245,6 +245,7 @@
 
             </LinearLayout>
 
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -252,40 +253,6 @@
                 android:alpha="0.5"
                 android:background="@color/lavender" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/password"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Password"
-                    android:textColor="@color/lavender"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/profilePassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="password"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/gray"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_margin="10dp"
-                android:alpha="0.5"
-                android:background="@color/lavender" />
             <Button
                 android:id="@+id/edit_chef"
                 android:layout_width="wrap_content"
@@ -296,6 +263,8 @@
                 android:text="Edit Profile"
                 android:textSize="20sp"
                 app:cornerRadius="20dp" />
+
+
         </LinearLayout>
 
         <Button
@@ -312,17 +281,7 @@
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayout"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.188" />
 
-        <Button
-            android:id="@+id/bottomButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="Log Out"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/post_dish" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

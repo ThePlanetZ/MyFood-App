@@ -20,10 +20,6 @@
         <activity
             android:name=".chefFoodPanel.Chef_EditProfile"
             android:exported="false" />
-
-        <activity
-            android:name=".webviewpiz"
-            android:exported="false" />
         <activity
             android:name=".chefFoodPanel.UpdateDelete_Dish"
             android:exported="false" />
@@ -84,6 +80,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".customerFoodPanel.Customer_EditProfile"
+            android:label="Edit Profile"
+            android:exported="true"
+            >
         </activity>
     </application>
 

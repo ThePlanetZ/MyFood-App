@@ -1,5 +1,6 @@
-package com.example.myfood.chefFoodPanel;
+package com.example.myfood.customerFoodPanel;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myfood.R;
@@ -19,21 +19,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Chef_EditProfile extends AppCompatActivity {
-    EditText editName, editLastName, editPassword, editMobile, editEmail;
+public class Customer_EditProfile extends AppCompatActivity {
+
+    EditText editName, editLastName, editMobile, editEmail;
     Button saveButton, passwordResetButton;
-    String nameUser, lastNameUser, passwordUser, mobileUser, emailUser;
+    String nameUser, lastNameUser,  mobileUser, emailUser;
     DatabaseReference reference;
     private AlertDialog alertDialog;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chef_edit_profile);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        reference = FirebaseDatabase.getInstance().getReference("Chef");
+
+        reference = FirebaseDatabase.getInstance().getReference("Customer");
 
         editName = findViewById(R.id.editName);
         editEmail = findViewById(R.id.editEmail);
@@ -41,6 +42,10 @@ public class Chef_EditProfile extends AppCompatActivity {
         editMobile = findViewById(R.id.editMobile);
         saveButton = findViewById(R.id.saveButton);
         passwordResetButton = findViewById(R.id.changepassword);
+        // changeEmailButton = findViewById(R.id.changeemail);
+
+
+
 
         showData();
 
@@ -48,16 +53,17 @@ public class Chef_EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isNameChanged() || isEmailChanged() || isLastChanged() || isPhoneChanged()) {
-                    Toast.makeText(Chef_EditProfile.this, "Saved", Toast.LENGTH_SHORT).show();
-                    // Notify the ChefProfileFragment to refresh the profile
+                    Toast.makeText(Customer_EditProfile.this, "Saved", Toast.LENGTH_SHORT).show();
+                    // Notify the CustomerProfileFragment to refresh the profile
                     Intent intent = new Intent("com.example.myfood.PROFILE_UPDATED");
                     intent.putExtra("refreshProfile", true);
                     sendBroadcast(intent);
                 } else {
-                    Toast.makeText(Chef_EditProfile.this, "No Changes Found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Customer_EditProfile.this, "No Changes Found", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 
         passwordResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +71,18 @@ public class Chef_EditProfile extends AppCompatActivity {
                 showPasswordResetDialog();
             }
         });
+
+
+//        changeEmailButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                showChangeEmailDialog();
+//            }
+//        });
     }
+
+
 
     public boolean isNameChanged() {
         String newName = editName.getText().toString().trim();
@@ -127,7 +144,7 @@ public class Chef_EditProfile extends AppCompatActivity {
             editMobile.setText(mobileUser);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(Chef_EditProfile.this, "Error displaying user data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Customer_EditProfile.this, "Error displaying user data", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -170,16 +187,16 @@ public class Chef_EditProfile extends AppCompatActivity {
                                     if (task.isSuccessful()) {
 
                                         // Password reset email sent successfully
-                                        Toast.makeText(Chef_EditProfile.this, "Password reset email sent.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Customer_EditProfile.this, "Password reset email sent.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         // If password reset email sending fails
-                                        Toast.makeText(Chef_EditProfile.this, "Failed to send password reset email.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Customer_EditProfile.this, "Failed to send password reset email.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                 } else {
                     // If email is empty, show a message
-                    Toast.makeText(Chef_EditProfile.this, "Enter your email address.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Customer_EditProfile.this, "Enter your email address.", Toast.LENGTH_SHORT).show();
                 }
 
                 // Dismiss the dialog
@@ -191,4 +208,73 @@ public class Chef_EditProfile extends AppCompatActivity {
         alertDialog = builder.create();
         alertDialog.show();
     }
+//    private void showChangeEmailDialog() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        View dialogView = getLayoutInflater().inflate(R.layout.dialogemailchange, null);
+//
+//        // Initialize views in the dialog layout
+//        EditText newPasswordEditText = dialogView.findViewById(R.id.currentpassword);
+//        EditText newEmailEditText = dialogView.findViewById(R.id.newEmail);
+//        Button authButton = dialogView.findViewById(R.id.btnAuth);
+//        Button changeEmailButton = dialogView.findViewById(R.id.btnChange);
+//
+//        builder.setView(dialogView);
+//        AlertDialog changeEmailDialog = builder.create();
+//
+//        // Set click listener for the Auth button
+//        authButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Get the entered password
+//                String password = newPasswordEditText.getText().toString();
+//
+//                // Authenticate the user
+//                FirebaseAuth.getInstance().signInWithEmailAndPassword(emailUser, password)
+//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                if (task.isSuccessful()) {
+//                                    // Authentication successful, allow the user to change the email
+//                                    Toast.makeText(EditProfileActivity.this, "Authentication successful", Toast.LENGTH_SHORT).show();
+//                                    newEmailEditText.setEnabled(true); // Enable the new email field
+//                                    changeEmailButton.setEnabled(true); // Enable the Change Email button
+//                                } else {
+//                                    // Authentication failed, show an error message
+//                                    Toast.makeText(EditProfileActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+//            }
+//        });
+//        // Set click listener for the Change Email button
+//        changeEmailButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Get the entered new email
+//                String newEmail = newEmailEditText.getText().toString();
+//
+//                // Perform necessary actions, e.g., update the email in the database
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//
+//                if (user != null) {
+//                    user.updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()) {
+//                                // Email update successful, notify the user
+//                                Toast.makeText(EditProfileActivity.this, "Email updated successfully", Toast.LENGTH_SHORT).show();
+//                                changeEmailDialog.dismiss(); // Dismiss the dialog after a successful email change
+//                            } else {
+//                                // Email update failed, show an error message
+//                                Toast.makeText(EditProfileActivity.this, "Email update failed", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//
+//        // Show the dialog
+//        changeEmailDialog.show();
+//}
 }

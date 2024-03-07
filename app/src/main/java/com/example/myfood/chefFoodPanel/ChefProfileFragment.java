@@ -4,7 +4,10 @@ import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,6 +54,7 @@ public class ChefProfileFragment extends Fragment {
     Uri mcropimageuri;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private StorageReference storageReference;
+    private BroadcastReceiver profileUpdateReceiver;
 
     @Nullable
     @Override
@@ -113,6 +117,18 @@ public class ChefProfileFragment extends Fragment {
                 startActivity(new Intent(getContext(),chef_postDish.class));
             }
         });
+        profileUpdateReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent != null && intent.getBooleanExtra("refreshProfile", false)) {
+                    // Refresh the profile
+                    retrieveUserData();
+                }
+            }
+        };
+
+        IntentFilter intentFilter = new IntentFilter("com.example.myfood.PROFILE_UPDATED");
+        requireActivity().registerReceiver(profileUpdateReceiver, intentFilter);
         return v;
     }
     private void retrieveUserData() {
@@ -319,4 +335,14 @@ public class ChefProfileFragment extends Fragment {
             Toast.makeText(getContext(), "Error updating database with image URL", Toast.LENGTH_SHORT).show();
         }
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // Unregister the BroadcastReceiver
+        if (profileUpdateReceiver != null) {
+            requireActivity().unregisterReceiver(profileUpdateReceiver);
+        }
+    }
+
 }
