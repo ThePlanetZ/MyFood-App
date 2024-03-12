@@ -11,15 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.myfood.R; // Replace with your actual package name
+import com.example.myfood.R;
 import com.example.myfood.UpdateDishModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.DishViewHolder> {
 
     private final Context context;
-    private final List<UpdateDishModel> dishList; // Replace DishModel with the actual model class for dishes
+    private List<UpdateDishModel> dishList; // Replace DishModel with the actual model class for dishes
 
     // Constructor
     public CustomerAdapter(Context context, List<UpdateDishModel> dishList) {
@@ -49,9 +50,16 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.DishVi
                 .placeholder(R.drawable.placeholder) // Replace with a placeholder image
                 .into(holder.dishImage);
     }
+
     @Override
     public int getItemCount() {
         return dishList.size();
+    }
+
+    // Add a filterList method to update the adapter data
+    public void filterList(List<UpdateDishModel> filteredList) {
+        dishList = new ArrayList<>(filteredList);
+        notifyDataSetChanged();
     }
 
     // ViewHolder class
@@ -67,7 +75,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.DishVi
             dishDescription = itemView.findViewById(R.id.textViewDishDescription); // Replace with your actual TextView ID
             dishPrice = itemView.findViewById(R.id.DishPrice); // Replace with your actual TextView ID
             dishQuantity = itemView.findViewById(R.id.DishQuantity); // Replace with your actual TextView ID
-
         }
     }
 }
