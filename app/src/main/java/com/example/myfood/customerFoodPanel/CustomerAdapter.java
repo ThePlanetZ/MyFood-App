@@ -1,6 +1,9 @@
+// CustomerAdapter.java
 package com.example.myfood.customerFoodPanel;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,16 +45,33 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.DishVi
         holder.dishName.setText(dish.getDishes());
         holder.dishDescription.setText(dish.getDescription());
         holder.dishPrice.setText(dish.getPrice());
-        holder.dishQuantity.setText(dish.getQuantity());
 
         // Load dish image using Glide or any other image loading library
         Glide.with(context)
                 .load(dish.getImageURL())
                 .placeholder(R.drawable.placeholder) // Replace with a placeholder image
                 .into(holder.dishImage);
-    }
 
-    @Override
+        // Inside the onBindViewHolder method
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dish != null) {
+                    // Pass data to DishDetailsActivity
+                    Intent intent = new Intent(context, DishDetailsActivity.class);
+                    intent.putExtra("dishName", dish.getDishes());
+                    intent.putExtra("dishDescription", dish.getDescription());
+                    intent.putExtra("dishPrice", dish.getPrice());
+                    intent.putExtra("dishImageURL", dish.getImageURL()); // Use getStringExtra for the image URL
+                    context.startActivity(intent);
+                } else {
+                    Log.e("CustomerAdapter", "Clicked dish is null");
+                }
+            }
+        });
+
+    }
+        @Override
     public int getItemCount() {
         return dishList.size();
     }
@@ -65,7 +85,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.DishVi
     // ViewHolder class
     public static class DishViewHolder extends RecyclerView.ViewHolder {
         ImageView dishImage;
-        TextView dishName, dishDescription, dishPrice, dishQuantity;
+        TextView dishName, dishDescription, dishPrice;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,7 +94,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.DishVi
             dishName = itemView.findViewById(R.id.Dishname); // Replace with your actual TextView ID
             dishDescription = itemView.findViewById(R.id.textViewDishDescription); // Replace with your actual TextView ID
             dishPrice = itemView.findViewById(R.id.DishPrice); // Replace with your actual TextView ID
-            dishQuantity = itemView.findViewById(R.id.DishQuantity); // Replace with your actual TextView ID
         }
     }
 }

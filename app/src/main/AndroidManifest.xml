@@ -87,6 +87,10 @@
             android:exported="true"
             >
         </activity>
+        <activity
+            android:name=".customerFoodPanel.DishDetailsActivity"
+            android:label="Dish Details">
+        </activity>
     </application>
 
 </manifest>
