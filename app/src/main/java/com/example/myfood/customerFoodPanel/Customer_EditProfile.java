@@ -33,7 +33,9 @@ public class Customer_EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chef_edit_profile);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         reference = FirebaseDatabase.getInstance().getReference("Customer");
 
         editName = findViewById(R.id.editName);
