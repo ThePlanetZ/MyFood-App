@@ -1,13 +1,10 @@
 package com.example.myfood.customerFoodPanel;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,62 +29,25 @@ public class CustomerHomeFragment extends Fragment {
     RecyclerView recyclerView;
     private List<UpdateDishModel> updateDishModelList;
     private CustomerAdapter adapter;
-    private SearchView searchView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.customer_home, container, false);
+        View v = inflater.inflate(R.layout.customer_home, null);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         recyclerView = v.findViewById(R.id.recycle_customer); // Replace with your actual RecyclerView ID
-        searchView = v.findViewById(R.id.searchView); // Assuming you have a SearchView in your layout
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         updateDishModelList = new ArrayList<>(); // You can initialize it with your data
         // Call a method to populate the updateDishModelList with customer dishes
-        customerDishes();
+         customerDishes();
 
         adapter = new CustomerAdapter(getContext(), updateDishModelList);
         recyclerView.setAdapter(adapter);
 
-        setupSearchView();
-
         return v;
-    }
-
-
-    private void setupSearchView() {
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // Handle the search query if needed
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterDishes(newText);
-                return true;
-            }
-        });
-    }
-
-    private void filterDishes(String query) {
-        List<UpdateDishModel> filteredList = new ArrayList<>();
-
-        if (TextUtils.isEmpty(query)) {
-            filteredList.addAll(updateDishModelList);
-        } else {
-            for (UpdateDishModel dish : updateDishModelList) {
-                if (dish.getDishes().toLowerCase().contains(query.toLowerCase())) {
-                    filteredList.add(dish);
-                }
-            }
-        }
-
-        adapter.filterList(filteredList);
     }
 
     // Add a method to fetch customer dishes from the database and update the updateDishModelList
@@ -130,4 +90,6 @@ public class CustomerHomeFragment extends Fragment {
             }
         });
     }
+
+
 }
