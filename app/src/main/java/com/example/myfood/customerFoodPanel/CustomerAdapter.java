@@ -1,12 +1,11 @@
-// CustomerAdapter.java
 package com.example.myfood.customerFoodPanel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,18 +16,23 @@ import com.bumptech.glide.Glide;
 import com.example.myfood.R;
 import com.example.myfood.UpdateDishModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.DishViewHolder> {
 
     private final Context context;
-    private List<UpdateDishModel> dishList; // Replace DishModel with the actual model class for dishes
+    private final List<UpdateDishModel> dishList;
+    private OnAddToCartClickListener mListener;
 
-    // Constructor
+
+
     public CustomerAdapter(Context context, List<UpdateDishModel> dishList) {
         this.context = context;
         this.dishList = dishList;
+    }
+
+    public void setOnAddToCartClickListener(OnAddToCartClickListener listener) {
+        this.mListener = listener;
     }
 
     @NonNull
@@ -39,12 +43,13 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.DishVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DishViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DishViewHolder holder, @SuppressLint("RecyclerView") int position) {
         UpdateDishModel dish = dishList.get(position);
 
         holder.dishName.setText(dish.getDishes());
-        holder.dishDescription.setText(dish.getDescription());
-        holder.dishPrice.setText(dish.getPrice());
+        holder.dishDescription.setText("Description: " + dish.getDescription());
+        holder.dishPrice.setText(dish.getPrice() + "DH");
+        holder.dishQuantity.setText("Quantity: " + dish.getQuantity());
 
         // Load dish image using Glide or any other image loading library
         Glide.with(context)
@@ -52,48 +57,36 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.DishVi
                 .placeholder(R.drawable.placeholder) // Replace with a placeholder image
                 .into(holder.dishImage);
 
-        // Inside the onBindViewHolder method
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        // Set a click listener for the ADD button
+        holder.btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (dish != null) {
-                    // Pass data to DishDetailsActivity
-                    Intent intent = new Intent(context, DishDetailsActivity.class);
-                    intent.putExtra("dishName", dish.getDishes());
-                    intent.putExtra("dishDescription", dish.getDescription());
-                    intent.putExtra("dishPrice", dish.getPrice());
-                    intent.putExtra("dishImageURL", dish.getImageURL()); // Use getStringExtra for the image URL
-                    context.startActivity(intent);
-                } else {
-                    Log.e("CustomerAdapter", "Clicked dish is null");
-                }
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onAddToCartClick(position, dish.getDishes(), dish.getImageURL(), dish.getPrice());                }
             }
         });
-
     }
-        @Override
+
+    @Override
     public int getItemCount() {
         return dishList.size();
-    }
-
-    // Add a filterList method to update the adapter data
-    public void filterList(List<UpdateDishModel> filteredList) {
-        dishList = new ArrayList<>(filteredList);
-        notifyDataSetChanged();
     }
 
     // ViewHolder class
     public static class DishViewHolder extends RecyclerView.ViewHolder {
         ImageView dishImage;
-        TextView dishName, dishDescription, dishPrice;
+        TextView dishName, dishDescription, dishPrice, dishQuantity;
+        ImageButton btnAddToCart;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            dishImage = itemView.findViewById(R.id.imageViewDish); // Replace with your actual ImageView ID
-            dishName = itemView.findViewById(R.id.Dishname); // Replace with your actual TextView ID
-            dishDescription = itemView.findViewById(R.id.textViewDishDescription); // Replace with your actual TextView ID
-            dishPrice = itemView.findViewById(R.id.DishPrice); // Replace with your actual TextView ID
+            dishImage = itemView.findViewById(R.id.imageViewDish);
+            dishName = itemView.findViewById(R.id.Dishname);
+            dishDescription = itemView.findViewById(R.id.textViewDishDescription);
+            dishPrice = itemView.findViewById(R.id.DishPrice);
+            dishQuantity = itemView.findViewById(R.id.DishQuantity);
+            btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
         }
     }
 }
