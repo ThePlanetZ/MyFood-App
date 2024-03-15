@@ -54,6 +54,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             if (currentQuantity > 1) {
                 currentQuantity--;
                 cartItem.setQuantity(currentQuantity);
+
                 if (customerUID != null && cartItem.getItemId() != null ){
                     // Update Firebase database
                     firebaseDatabaseHelper.updateCartItemQuantity(customerUID, cartItem.getItemId(), currentQuantity);

@@ -2,12 +2,14 @@ package com.example.myfood.customerFoodPanel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,14 +59,19 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.DishVi
                 .placeholder(R.drawable.placeholder) // Replace with a placeholder image
                 .into(holder.dishImage);
 
-        // Set a click listener for the ADD button
+        // Set a click listener for the ADD button :
         holder.btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onAddToCartClick(position, dish.getDishes(), dish.getImageURL(), dish.getPrice());                }
+                    mListener.onAddToCartClick(position, dish.getDishes(), dish.getImageURL(), dish.getPrice());
+                    // Add log statement here to verify if the listener is triggered
+                    Log.d("CustomerHomeFragment", "Add to Cart clicked at position: " + position);
+                    Toast.makeText(context, "Added to cart successfully !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
     }
 
     @Override

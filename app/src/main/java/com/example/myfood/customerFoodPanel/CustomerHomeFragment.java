@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfood.R;
 import com.example.myfood.UpdateDishModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerHomeFragment extends Fragment {
+public class CustomerHomeFragment extends Fragment implements OnAddToCartClickListener{
 
     RecyclerView recyclerView;
     private List<UpdateDishModel> updateDishModelList;
@@ -46,8 +48,28 @@ public class CustomerHomeFragment extends Fragment {
 
         adapter = new CustomerAdapter(getContext(), updateDishModelList);
         recyclerView.setAdapter(adapter);
+        adapter.setOnAddToCartClickListener(this);
+
 
         return v;
+    }
+    @Override
+    public void onAddToCartClick(int position, String dishName, String imageUrl, String price) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            String customerUID = currentUser.getUid();
+            Log.d("Customer UID", customerUID);
+            DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("Cart").child(customerUID);
+            String cartItemId = cartRef.push().getKey();
+
+            CartItem cartItem = new CartItem(dishName, imageUrl, price, 1);
+            cartRef.child(cartItemId).setValue(cartItem);
+            Log.e("Error33","onAddMethod called");
+        } else {
+            Log.e("Error", "No user is currently signed in.");
+        }
     }
 
     // Add a method to fetch customer dishes from the database and update the updateDishModelList
