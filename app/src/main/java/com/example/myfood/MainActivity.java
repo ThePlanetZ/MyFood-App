@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
         imageView=(ImageView)findViewById(R.id.ImageView);
         imageView.animate().alpha(0f).setDuration(0);
         imageView.animate().alpha(1f).setDuration(1000).setListener(new AnimatorListenerAdapter() {

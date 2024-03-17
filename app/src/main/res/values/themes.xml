@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Myfood" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/blueish</item>
+        <item name="colorPrimary">@color/orange</item>
     </style>
 
     <style name="Theme.Myfood" parent="Base.Theme.Myfood" />

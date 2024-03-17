@@ -17,6 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Myfood"
         tools:targetApi="31">
+
+        <activity
+            android:name=".customerFoodPanel.DishDetailsActivity"
+            android:exported="false" />
         <activity
             android:name=".chefFoodPanel.Chef_EditProfile"
             android:exported="false" />
@@ -83,10 +87,17 @@
         </activity>
         <activity
             android:name=".customerFoodPanel.Customer_EditProfile"
-            android:label="Edit Profile"
             android:exported="true"
-            >
-        </activity>
+            android:label="Edit Profile" />
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
+
 
 </manifest>

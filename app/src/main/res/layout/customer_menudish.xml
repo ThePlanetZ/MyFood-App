@@ -81,19 +81,5 @@
             app:layout_constraintTop_toBottomOf="@+id/infoLayout"
             app:layout_constraintVertical_bias="0.0" />
 
-        <ImageButton
-            android:id="@+id/btnAddToCart"
-            android:layout_width="61dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="2dp"
-            android:background="@drawable/orange_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8"
-            app:srcCompat="@drawable/shopping_cart_24" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

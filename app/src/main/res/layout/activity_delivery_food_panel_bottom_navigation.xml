@@ -5,22 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DeliveryFoodPanel_BottomNavigation">
-
     <FrameLayout
-        android:id="@+id/fragment_containerbott"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/frame_container"
+        android:layout_above="@id/deliveryBottom"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/delivery_bottom_navigation"
+        android:id="@+id/deliveryBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/delivery_bottom_navigation"
-        android:backgroundTint="@color/white"
+        android:layout_marginBottom="-1dp"
         android:background="?android:attr/windowBackground"
+        android:backgroundTint="@color/white"
+        app:itemIconTint="@color/menu_item_color"
         app:itemTextColor="@color/menu_item_color"
-        app:itemIconTint="@color/menu_item_color"/>
+        app:menu="@menu/delivery_bottom_navigation"
+        app:labelVisibilityMode="selected" />
+
 </RelativeLayout>

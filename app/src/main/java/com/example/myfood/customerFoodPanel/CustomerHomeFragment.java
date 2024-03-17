@@ -1,10 +1,12 @@
 package com.example.myfood.customerFoodPanel;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,11 +28,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerHomeFragment extends Fragment implements OnAddToCartClickListener{
+public class CustomerHomeFragment extends Fragment {
 
     RecyclerView recyclerView;
     private List<UpdateDishModel> updateDishModelList;
     private CustomerAdapter adapter;
+    private SearchView searchView;
+
 
     @Nullable
     @Override
@@ -38,7 +42,8 @@ public class CustomerHomeFragment extends Fragment implements OnAddToCartClickLi
         View v = inflater.inflate(R.layout.customer_home, null);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        recyclerView = v.findViewById(R.id.recycle_customer); // Replace with your actual RecyclerView ID
+        recyclerView = v.findViewById(R.id.recycle_customer);
+        searchView = v.findViewById(R.id.searchView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -48,70 +53,108 @@ public class CustomerHomeFragment extends Fragment implements OnAddToCartClickLi
 
         adapter = new CustomerAdapter(getContext(), updateDishModelList);
         recyclerView.setAdapter(adapter);
-        adapter.setOnAddToCartClickListener(this);
+        setupSearchView();
 
 
         return v;
     }
-    @Override
-    public void onAddToCartClick(int position, String dishName, String imageUrl, String price) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser != null) {
-            String customerUID = currentUser.getUid();
-            Log.d("Customer UID", customerUID);
-            DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("Cart").child(customerUID);
-            String cartItemId = cartRef.push().getKey();
+    // for the search bar :
+    private void setupSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Handle the search query if needed
+                return false;
+            }
 
-            CartItem cartItem = new CartItem(dishName, imageUrl, price, 1);
-            cartRef.child(cartItemId).setValue(cartItem);
-            Log.e("Error33","onAddMethod called");
-        } else {
-            Log.e("Error", "No user is currently signed in.");
-        }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterDishes(newText);
+                return true;
+            }
+        });
     }
+
+    private void filterDishes(String query) {
+        List<UpdateDishModel> filteredList = new ArrayList<>();
+
+        if (TextUtils.isEmpty(query)) {
+            filteredList.addAll(updateDishModelList);
+        } else {
+            for (UpdateDishModel dish : updateDishModelList) {
+                if (dish.getDishes().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(dish);
+                }
+            }
+        }
+
+        adapter.filterList(filteredList);
+    }
+
+
 
     // Add a method to fetch customer dishes from the database and update the updateDishModelList
     private void customerDishes() {
         DatabaseReference foodDetailsRef = FirebaseDatabase.getInstance().getReference("FoodDetails");
 
-        foodDetailsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                try {
-                    updateDishModelList.clear();
+        // Get the current user's city from the Customer node in the database
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String customerUID = currentUser.getUid();
+            DatabaseReference customerRef = FirebaseDatabase.getInstance().getReference("Customer").child(customerUID);
+            customerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String customerCity = snapshot.child("City").getValue(String.class);
 
-                    for (DataSnapshot citySnapshot : snapshot.getChildren()) {
-                        for (DataSnapshot areaSnapshot : citySnapshot.getChildren()) {
-                            for (DataSnapshot chefSnapshot : areaSnapshot.getChildren()) {
-                                for (DataSnapshot dishSnapshot : chefSnapshot.getChildren()) {
-                                    UpdateDishModel updateDishModel = dishSnapshot.getValue(UpdateDishModel.class);
-                                    if (updateDishModel != null) {
-                                        updateDishModelList.add(updateDishModel);
-                                        Log.d("DataSize", "Number of dishes: " + updateDishModelList.size());
+                        // Query only the dishes in the customer's city
+                        DatabaseReference cityRef = foodDetailsRef.child(customerCity);
+                        cityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                try {
+                                    updateDishModelList.clear();
 
-                                    } else {
-                                        Log.e("DataSnapshotError", "Failed to parse UpdateDishModel: " + dishSnapshot.getKey());
+                                    for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                                        for (DataSnapshot chefSnapshot : areaSnapshot.getChildren()) {
+                                            for (DataSnapshot dishSnapshot : chefSnapshot.getChildren()) {
+                                                UpdateDishModel updateDishModel = dishSnapshot.getValue(UpdateDishModel.class);
+                                                if (updateDishModel != null) {
+                                                    updateDishModelList.add(updateDishModel);
+
+                                                } else {
+                                                    Log.e("DataSnapshotError", "Failed to parse UpdateDishModel: " + dishSnapshot.getKey());
+                                                }
+                                            }
+                                        }
                                     }
+
+                                    adapter.notifyDataSetChanged();
+                                } catch (Exception e) {
+                                    Log.e("DataSnapshotError", "Error processing DataSnapshot", e);
                                 }
                             }
-                        }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.e("DatabaseError", "Database error: " + error.getMessage());
+                                // Handle database error if needed
+                            }
+                        });
                     }
-
-                    adapter.notifyDataSetChanged();
-                } catch (Exception e) {
-                    Log.e("DataSnapshotError", "Error processing DataSnapshot", e);
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("DatabaseError", "Database error: " + error.getMessage());
-                // Handle database error if needed
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("DatabaseError", "Database error: " + error.getMessage());
+                    // Handle database error if needed
+                }
+            });
+        }
     }
+
 
 
 }
