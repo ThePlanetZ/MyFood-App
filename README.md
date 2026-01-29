@@ -12,6 +12,20 @@ The application allows:
 * Customers to browse meals, place orders, and track deliveries.
 * Delivery persons to accept orders and manage deliveries in real time.
 
+## App Screenshots
+
+![Login](screenshots/img.png)
+
+![Chef Dashboard](screenshots/img_1.png)
+
+![Customer Orders](screenshots/img_2.png)
+
+![Dish Details](screenshots/img_3.png)
+
+![Favorites Page](screenshots/img_4.png)
+
+  
+![Delivery Pending](screenshots/img_5.png)
 ---
 
 ## Features
