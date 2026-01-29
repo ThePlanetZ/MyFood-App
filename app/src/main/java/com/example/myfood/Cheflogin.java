@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Cheflogin extends AppCompatActivity {
 
@@ -118,25 +120,52 @@ public class Cheflogin extends AppCompatActivity {
                     String role = snapshot.child("Role").getValue(String.class);
 
                     if ("Chef".equals(role)) {
-                        Toast.makeText(Cheflogin.this, "Congratulation! You Have Successfully Logged In", Toast.LENGTH_SHORT).show();
-                        Intent Z = new Intent(Cheflogin.this, ChefFoodPanel_BottomNavigation.class);
-                        startActivity(Z);
-                        finish(); //  finish the current login activity
-                    } else if ("Customer".equals(role)) {
-                        Toast.makeText(Cheflogin.this, "Customers are not allowed to log in here", Toast.LENGTH_LONG).show();
-                        FirebaseAuth.getInstance().signOut(); // Sign out the user explicitly
-                        startActivity(new Intent(Cheflogin.this, MainMenu.class));
-                        finish(); // Finish the current login activity
-                    } else if ("DeliveryPerson".equals(role)) {
-                        Toast.makeText(Cheflogin.this, "EDelivery persons are not allowed to log in here", Toast.LENGTH_LONG).show();
+                        // Fetch the FCM token
+                        FirebaseMessaging.getInstance().getToken()
+                                .addOnCompleteListener(new OnCompleteListener<String>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<String> task) {
+                                        if (task.isSuccessful() && task.getResult() != null) {
+                                            String fcmToken = task.getResult();
+                                            // Store the FCM token under the user node
+                                            userRoleRef.child("token").setValue(fcmToken)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> tokenTask) {
+                                                            if (tokenTask.isSuccessful()) {
+                                                                Log.d("FCM Token", "FCM token stored successfully: " + fcmToken);
+                                                                // Proceed to the Chef Food Panel activity
+                                                                Toast.makeText(Cheflogin.this, "Congratulation! You Have Successfully Logged In", Toast.LENGTH_SHORT).show();
+                                                                Intent Z = new Intent(Cheflogin.this, ChefFoodPanel_BottomNavigation.class);
+                                                                startActivity(Z);
+                                                                finish(); // Finish the current login activity
+                                                            } else {
+                                                                // Handle token storage failure
+                                                                Log.e("FCM Token", "Failed to store FCM token: " + tokenTask.getException());
+                                                                Toast.makeText(Cheflogin.this, "Error: Failed to store FCM token", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+                                        } else {
+                                            // Handle error fetching FCM token
+                                            Log.e("FCM Token", "Failed to fetch FCM token: " + task.getException());
+                                            Toast.makeText(Cheflogin.this, "Error: Failed to fetch FCM token", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    } else if ("Customer".equals(role) || "DeliveryPerson".equals(role)) {
+                        // Handle invalid user role
+                        Toast.makeText(Cheflogin.this, "Invalid user role", Toast.LENGTH_LONG).show();
                         FirebaseAuth.getInstance().signOut(); // Sign out the user explicitly
                         startActivity(new Intent(Cheflogin.this, MainMenu.class));
                         finish(); // Finish the current login activity
                     } else {
-                        Toast.makeText(Cheflogin.this, "Error: Invalid user role", Toast.LENGTH_LONG).show();
+                        // Handle unknown user role
+                        Toast.makeText(Cheflogin.this, "Error: Unknown user role", Toast.LENGTH_LONG).show();
                         FirebaseAuth.getInstance().signOut(); // Sign out the user explicitly
                     }
                 } else {
+                    // Handle user data not found
                     Toast.makeText(Cheflogin.this, "Error: User data not found", Toast.LENGTH_LONG).show();
                 }
             }

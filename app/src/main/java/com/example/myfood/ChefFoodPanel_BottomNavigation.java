@@ -11,6 +11,7 @@ import com.example.myfood.chefFoodPanel.ChefHomeFragment;
 import com.example.myfood.chefFoodPanel.ChefOrderFragment;
 import com.example.myfood.chefFoodPanel.ChefPendingOrderFragment;
 import com.example.myfood.chefFoodPanel.ChefProfileFragment;
+import com.example.myfood.chefFoodPanel.map_chef;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ChefFoodPanel_BottomNavigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -23,6 +24,7 @@ public class ChefFoodPanel_BottomNavigation extends AppCompatActivity implements
         navigationView.setOnNavigationItemSelectedListener(this);
      // Set the default fragment (ChefHomeFragment) when the activity starts
         loadcheffragment(new ChefHomeFragment());
+
     }
 
     @Override
@@ -34,9 +36,12 @@ public class ChefFoodPanel_BottomNavigation extends AppCompatActivity implements
             fragment = new ChefPendingOrderFragment();
         } else if (item.getItemId() == R.id.Orders) {
             fragment = new ChefOrderFragment();
-        } else if (item.getItemId() == R.id.chefProfiele) {
-            fragment = new ChefProfileFragment();
+        } else if (item.getItemId() == R.id.chefmap) {
+            fragment = new map_chef();
         }
+         else if (item.getItemId() == R.id.chefProfiele) {
+            fragment = new ChefProfileFragment();
+          }
         return loadcheffragment(fragment);
     }
 
@@ -48,4 +53,5 @@ public class ChefFoodPanel_BottomNavigation extends AppCompatActivity implements
         }
         return false;
     }
+
 }

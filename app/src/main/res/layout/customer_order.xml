@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:padding="14dp"
+        android:background="#F5F5F5"
+        android:elevation="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Dish Image -->
+            <ImageView
+                android:id="@+id/imageViewDish"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/pizzamaison"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="16dp" />
+
+            <!-- Dish Name -->
+            <TextView
+                android:id="@+id/textViewDishName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dish Name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/imageViewDish"
+                android:layout_marginTop="8dp" />
+
+            <!-- Dish Price -->
+            <TextView
+                android:id="@+id/textViewDishPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:layout_below="@id/textViewDishName"
+                android:layout_toEndOf="@id/imageViewDish"
+                android:layout_marginTop="8dp" />
+
+            <!-- Delivery Person -->
+            <TextView
+                android:id="@+id/textViewDeliveryPerson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivery Person: ahmed"
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:layout_below="@id/textViewDishPrice"
+                android:layout_toEndOf="@id/imageViewDish"
+                android:layout_marginTop="8dp" />
+
+            <!-- Chef Name -->
+            <TextView
+                android:id="@+id/textViewChefName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chef: Chef Name"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"
+                android:textColor="#666666"
+                android:layout_below="@id/textViewDeliveryPerson"
+                android:layout_toEndOf="@id/imageViewDish"
+                android:layout_marginTop="8dp" />
+
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

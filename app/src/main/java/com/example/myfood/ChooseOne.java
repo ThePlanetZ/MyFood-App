@@ -33,11 +33,9 @@ public class ChooseOne extends AppCompatActivity {
                     if (type.equals("Email")) {
                         Intent loginemail = new Intent(ChooseOne.this, Cheflogin.class);
                         startActivity(loginemail);
-                        finish();
                     } else if (type.equals("Phone")) {
                         Intent loginphone = new Intent(ChooseOne.this, Chefloginphone.class);
                         startActivity(loginphone);
-                        finish();
                     } else if (type.equals("SignUp")) {
                         Intent Register = new Intent(ChooseOne.this, ChefRegistration.class);
                         startActivity(Register);
@@ -53,11 +51,9 @@ public class ChooseOne extends AppCompatActivity {
                     if (type.equals("Email")) {
                         Intent loginemailcust = new Intent(ChooseOne.this, Login.class);
                         startActivity(loginemailcust);
-                        finish();
                     } else if (type.equals("Phone")) {
                         Intent loginphonecust = new Intent(ChooseOne.this, Loginphone.class);
                         startActivity(loginphonecust);
-                        finish();
                     } else if (type.equals("SignUp")) {
                         Intent Registercust = new Intent(ChooseOne.this, Registration.class);
                         startActivity(Registercust);
@@ -73,11 +69,9 @@ public class ChooseOne extends AppCompatActivity {
                     if (type.equals("Email")) {
                         Intent loginemail = new Intent(ChooseOne.this, Delivery_Login.class);
                         startActivity(loginemail);
-                        finish();
                     } else if (type.equals("Phone")) {
                         Intent loginphone = new Intent(ChooseOne.this, Delivery_Loginphone.class);
                         startActivity(loginphone);
-                        finish();
                     } else if (type.equals("SignUp")) {
                         Intent Registerdelivery = new Intent(ChooseOne.this, Delivery_Registration.class);
                         startActivity(Registerdelivery);

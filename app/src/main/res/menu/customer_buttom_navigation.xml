@@ -5,9 +5,9 @@
         android:id="@+id/cust_Home"
         android:icon="@drawable/home_cabin_24"/>
     <item
-        android:title="Cart"
+        android:title="Favorite"
         android:id="@+id/cart"
-        android:icon="@drawable/baseline_add_shopping_cart_24"/>
+        android:icon="@drawable/baseline_favorite_24"/>
     <item
         android:title="Orders"
         android:id="@+id/Cust_order"

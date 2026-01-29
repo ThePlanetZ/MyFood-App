@@ -45,9 +45,9 @@ public class chef_postDish extends AppCompatActivity {
 
     ImageButton imageButton;
     Button post_dish;
-    Spinner Dishes;
-    TextInputLayout desc,qty,pri;
-    String descrption,quantity,price,dishes;
+    Spinner categorie;
+    TextInputLayout desc,qty,pri,Dishes,Time;
+    String descrption,quantity,price,DishCategorie,dishname,time;
     Uri imageuri;
     private Uri mcropimageuri;
     FirebaseStorage storage;
@@ -65,10 +65,11 @@ public class chef_postDish extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-
+          Time=(TextInputLayout)findViewById(R.id.time_to_prepare) ;
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        Dishes = (Spinner)findViewById(R.id.dishes);
+        categorie = (Spinner)findViewById(R.id.dishesCategorie);
+        Dishes=(TextInputLayout) findViewById(R.id.dishName) ;
         desc = (TextInputLayout) findViewById(R.id.description);
         qty = (TextInputLayout) findViewById(R.id.Quantity);
         pri = (TextInputLayout) findViewById(R.id.price);
@@ -95,10 +96,13 @@ public class chef_postDish extends AppCompatActivity {
                     post_dish.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dishes = Dishes.getSelectedItem().toString().trim();
+                            DishCategorie = categorie.getSelectedItem().toString().trim();
+                            dishname=Dishes.getEditText().getText().toString().trim();
                             descrption = desc.getEditText().getText().toString().trim();
                             quantity = qty.getEditText().getText().toString().trim();
                             price = pri.getEditText().getText().toString().trim();
+                            time= Time.getEditText().getText().toString().trim();
+
 
                             if(isValid()){
                                 uploadImage();
@@ -133,7 +137,7 @@ public class chef_postDish extends AppCompatActivity {
                     ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            FoodDetails info = new FoodDetails(dishes,quantity,price,descrption,String.valueOf(uri),RandomUID,ChefId);
+                            FoodDetails info = new FoodDetails(DishCategorie,dishname,quantity,price,descrption,String.valueOf(uri),RandomUID,ChefId,time);
                             firebaseDatabase.getInstance().getReference("FoodDetails").child(City).child(Area).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(RandomUID)
                                     .setValue(info).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override

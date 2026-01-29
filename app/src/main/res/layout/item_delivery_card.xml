@@ -1,0 +1,114 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cardView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="25dp"
+    android:elevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="403dp"
+        android:layout_height="match_parent"
+        android:padding="9dp">
+
+        <TextView
+            android:id="@+id/delivery_adress"
+            android:layout_width="277dp"
+            android:layout_height="31dp"
+            android:text="Adresse : "
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.944"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/delivery_city"
+            app:layout_constraintVertical_bias="0.326" />
+
+        <TextView
+            android:id="@+id/delivery_city"
+            android:layout_width="277dp"
+            android:layout_height="31dp"
+            android:text="City : "
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.944"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/infoLayout"
+            app:layout_constraintVertical_bias="0.321" />
+
+        <ImageView
+            android:id="@+id/imageViewChef"
+            android:layout_width="76dp"
+            android:layout_height="73dp"
+            android:layout_marginEnd="296dp"
+            android:background="@drawable/circle_background"
+            android:scaleType="centerCrop"
+            android:src="@drawable/prfl1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.045" />
+
+        <LinearLayout
+            android:id="@+id/infoLayout"
+            android:layout_width="283dp"
+            android:layout_height="35dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.084">
+
+            <!-- Your existing TextViews -->
+
+            <TextView
+                android:id="@+id/delivery_name"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:text="Delivery Name"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/delivery_phone"
+            android:layout_width="277dp"
+            android:layout_height="31dp"
+            android:text="Phone number :"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.935"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/infoLayout"
+            app:layout_constraintVertical_bias="0.076" />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="116dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="44dp"
+            android:backgroundTint="@color/orange"
+            android:drawableLeft="@drawable/send_24"
+            android:drawablePadding="4dp"
+            android:text="Send"
+            android:textColor="@color/white"
+            android:textColorHint="@color/Red"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.788"
+            app:layout_constraintStart_toStartOf="@+id/delivery_adress"
+            app:layout_constraintTop_toBottomOf="@+id/delivery_adress"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

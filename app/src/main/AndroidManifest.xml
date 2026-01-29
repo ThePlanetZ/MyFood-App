@@ -4,6 +4,8 @@
     package="com.example.myfood">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -17,7 +19,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Myfood"
         tools:targetApi="31">
+        <activity
+            android:name=".activity_rating"
+            android:exported="false" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="Gougle_Maps_API_CODE" />
+
+        <activity
+            android:name=".chefFoodPanel.map_chef"
+            android:exported="false" />
         <activity
             android:name=".customerFoodPanel.DishDetailsActivity"
             android:exported="false" />
@@ -35,7 +47,8 @@
             android:exported="false" />
         <activity
             android:name=".CustomerFoofPanel_BottomNavigation"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Chefsendotp"
             android:exported="false" />
@@ -88,7 +101,11 @@
         <activity
             android:name=".customerFoodPanel.Customer_EditProfile"
             android:exported="true"
-            android:label="Edit Profile" />
+            android:label="CustomerEdit Profile " />
+        <activity
+            android:name=".deliveryFoodPanel.Edit_DE_profile"
+            android:exported="true"
+            android:label="Delivery Edit Profile" />
 
         <service
             android:name=".MyFirebaseMessagingService"
@@ -98,6 +115,5 @@
             </intent-filter>
         </service>
     </application>
-
 
 </manifest>

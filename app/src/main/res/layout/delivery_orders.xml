@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Accepted Orders"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:background="@color/lhrba"
+            android:textColor="@android:color/white"
+            android:gravity="center" />
+
+        <!-- Order Details -->
+        <LinearLayout
+            android:id="@+id/linear_layout_order_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTitle"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Customer Name -->
+            <TextView
+                android:id="@+id/textViewCustomerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customer Name"
+                android:textSize="18sp" />
+
+            <!-- Customer Phone -->
+            <TextView
+                android:id="@+id/textViewCustomerPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customer Phone"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <!-- Customer Address -->
+            <TextView
+                android:id="@+id/textViewCustomerAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customer Address"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <!-- Customer City -->
+            <TextView
+                android:id="@+id/textViewCustomerCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customer City"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <!-- Dish Name -->
+            <TextView
+                android:id="@+id/textViewDishName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dish Name"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <!-- Dish Price -->
+            <TextView
+                android:id="@+id/textViewDishPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <!-- Quantity -->
+            <TextView
+                android:id="@+id/textViewQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quantity"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/textViewChefName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chef Name"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <!-- Chef Address -->
+            <TextView
+                android:id="@+id/textViewChefAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chef Address"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <!-- Chef Phone -->
+            <TextView
+                android:id="@+id/textViewChefPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chef Phone"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <!-- Chef City -->
+            <TextView
+                android:id="@+id/textViewChefCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chef City"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <LinearLayout
+                android:id="@+id/linear_layout_order_details1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewTitle"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+                <Button
+                    android:id="@+id/btnConfirmdelivery"
+                    android:layout_width="238dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:text="Order delivered !"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

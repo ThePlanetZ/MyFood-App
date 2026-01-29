@@ -10,48 +10,61 @@
     android:elevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="403dp"
+        android:layout_height="match_parent"
         android:padding="9dp">
 
         <ImageView
             android:id="@+id/imageViewDish"
             android:layout_width="141dp"
             android:layout_height="142dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/placeholder"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/bgfood"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewChef" />
+
+        <ImageView
+            android:id="@+id/imageViewChef"
+            android:layout_width="39dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="336dp"
+            android:background="@drawable/circle_background"
+            android:scaleType="centerCrop"
+            android:src="@drawable/prfl1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/infoLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_width="221dp"
+            android:layout_height="184dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/imageViewDish"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.082">
+            app:layout_constraintTop_toBottomOf="@+id/ChefName">
 
             <!-- Your existing TextViews -->
             <TextView
-                android:id="@+id/Dishname"
+                android:id="@+id/DishCategory"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Dish Name"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_height="31dp"
+                android:text="Category"
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
             <TextView
-                android:id="@+id/textViewDishDescription"
+                android:id="@+id/Dishname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Dish Description"
-                android:textSize="14sp" />
+                android:layout_height="32dp"
+                android:text="Dish Name"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
 
             <TextView
                 android:id="@+id/DishQuantity"
@@ -59,27 +72,95 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Quantity: 0"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/DishDescription"
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:layout_marginTop="4dp"
+                android:text="Dish Description"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/ChefCity"
+                android:layout_width="126dp"
+                android:layout_height="wrap_content"
+                android:text="Chef City"
+                android:textSize="15sp" />
+
+
+            <!-- New TextView for Time Delivery -->
+
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp">
+
+            <TextView
+                android:id="@+id/textViewRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="88dp"
+                android:text="55 "
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/iconChefCity"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="55dp"
+                android:src="@drawable/baseline_star_24" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/ChefName"
+            android:layout_width="151dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="8dp"
+            android:text="Chef Name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imageViewChef"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/DishPrice"
             android:layout_width="88dp"
             android:layout_height="30dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="6dp"
-            android:text="Price:"
+            android:layout_marginTop="4dp"
+            android:text="Price: "
             android:textColor="@color/orange"
             android:textSize="19sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
+            app:layout_constraintHorizontal_bias="0.833"
             app:layout_constraintStart_toEndOf="@+id/imageViewDish"
-            app:layout_constraintTop_toBottomOf="@+id/infoLayout"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/infoLayout" />
+
+        <TextView
+            android:id="@+id/TimeDelivery"
+            android:layout_width="245dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="24dp"
+            android:text="Time Delivery"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/DishPrice"
+            app:layout_constraintTop_toBottomOf="@+id/infoLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -74,5 +74,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.2.0")
 
 }

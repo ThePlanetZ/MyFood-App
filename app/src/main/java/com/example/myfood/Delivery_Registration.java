@@ -29,14 +29,14 @@ public class Delivery_Registration extends AppCompatActivity {
 
 
 
-    TextInputLayout Fname,Lname,Email,Pass,cpass,mobileno,houseno,area,pincode;
+    TextInputLayout Fname,Lname,Email,Pass,cpass,mobileno,houseno,area,pincode,Adress;
     Spinner Cityspin;
     Button signup, Emaill, Phone;
     CountryCodePicker Cpp;
     FirebaseAuth FAuth;
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
-    String fname,lname,emailid,password,confpassword,mobile,house,Area,Pincode,cityy;
+    String fname,lname,emailid,password,confpassword,mobile,house,Area,Pincode,cityy,adress;
     String role="DeliveryPerson";
 
     @Override
@@ -57,6 +57,7 @@ public class Delivery_Registration extends AppCompatActivity {
         pincode = (TextInputLayout)findViewById(R.id.Pincodee);
         Cityspin = (Spinner) findViewById(R.id.City);
         area = (TextInputLayout)findViewById(R.id.Areaa);
+        Adress=(TextInputLayout)findViewById(R.id.Address);
 
         signup = (Button)findViewById(R.id.Signupp);
         Emaill = (Button)findViewById(R.id.emaillid);
@@ -92,6 +93,7 @@ public class Delivery_Registration extends AppCompatActivity {
                 Area = area.getEditText().getText().toString().trim();
                 house = houseno.getEditText().getText().toString().trim();
                 Pincode = pincode.getEditText().getText().toString().trim();
+                adress=Adress.getEditText().getText().toString().trim();
 
                 if (isValid()){
                     final ProgressDialog mDialog = new ProgressDialog(Delivery_Registration.this);
@@ -124,6 +126,8 @@ public class Delivery_Registration extends AppCompatActivity {
                                         hashMap1.put("Pincode",Pincode);
                                         hashMap1.put("Confirm Password",confpassword);
                                         hashMap1.put("House",house);
+                                        hashMap1.put("Adress",adress);
+
 
                                         firebaseDatabase.getInstance().getReference("DeliveryPerson")
                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

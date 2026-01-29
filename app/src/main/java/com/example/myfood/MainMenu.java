@@ -32,7 +32,7 @@ public class MainMenu extends AppCompatActivity {
                 Intent signemail = new Intent(MainMenu.this,ChooseOne.class);
                 signemail.putExtra("Home","Email");
                 startActivity(signemail);
-                finish();
+
             }
         });
 
@@ -42,7 +42,7 @@ public class MainMenu extends AppCompatActivity {
                 Intent signphone = new Intent(MainMenu.this,ChooseOne.class);
                 signphone.putExtra("Home","Phone");
                 startActivity(signphone);
-                finish();
+
             }
         });
 
@@ -52,7 +52,7 @@ public class MainMenu extends AppCompatActivity {
                 Intent signup = new Intent(MainMenu.this,ChooseOne.class);
                 signup.putExtra("Home","SignUp");
                 startActivity(signup);
-                finish();
+
             }
         });
     }

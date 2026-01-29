@@ -47,6 +47,8 @@ public class ChefHomeAdapter extends RecyclerView.Adapter<ChefHomeAdapter.ViewHo
                 .into(holder.dishImageView);
 
         holder.dishName.setText(updateDishModel.getDishes());
+        holder.price.setText("Price :"+updateDishModel.getPrice());
+        holder.quantity.setText("Quantity :"+updateDishModel.getQuantity());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,12 +67,14 @@ public class ChefHomeAdapter extends RecyclerView.Adapter<ChefHomeAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView dishImageView;
-        TextView dishName;
+        TextView dishName,price,quantity;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             dishImageView = itemView.findViewById(R.id.dish_image);
             dishName = itemView.findViewById(R.id.dish_name);
+            price=itemView.findViewById(R.id.dish_price);
+            quantity=itemView.findViewById(R.id.dish_quantity);
         }
     }
 }

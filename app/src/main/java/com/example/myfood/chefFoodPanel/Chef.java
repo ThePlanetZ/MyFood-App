@@ -8,15 +8,15 @@ public class Chef {
 
     public Chef(String area, String city, String confirmPassword, String emailid, String fname, String house, String lname, String mobile, String password, String postcode, String state) {
         this.Area = area;
-        City = city;
-        ConfirmPassword = confirmPassword;
-        Emailid = emailid;
-        Fname = fname;
-        House = house;
-        Lname = lname;
-        Mobile = mobile;
-        Password = password;
-        Postcode = postcode;
+        this.City = city;
+        this.ConfirmPassword = confirmPassword;
+        this.Emailid = emailid;
+        this.Fname = fname;
+        this.House = house;
+        this.Lname = lname;
+        this.Mobile = mobile;
+        this.Password = password;
+        this.Postcode = postcode;
     }
     public Chef() {
     }

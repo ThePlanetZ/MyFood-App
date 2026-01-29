@@ -2,13 +2,30 @@ package com.example.myfood;
 
 public class UpdateDishModel {
 
-    String Dishes,RandomUID,Description,Quantity,Price,ImageURL,ChefId;
+    String Dishes,RandomUID,Description,Quantity,Price,ImageURL,ChefId,Categorie,time;
 
     // Press Alt+insert
-
     public UpdateDishModel(){
 
     }
+
+//    public String getTime() {
+//        return Time;
+//    }
+//
+//    public void setTime(String time) {
+//        Time = time;
+//    }
+
+    public String getCategorie() {
+        return Categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        Categorie = categorie;
+    }
+
+
 
     public String getDishes() {
         return Dishes;

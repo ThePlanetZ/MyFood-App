@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,15 +46,14 @@ import java.util.UUID;
 
 public class UpdateDelete_Dish extends AppCompatActivity {
 
-    TextInputLayout desc,qty,pri;
-    TextView Dishname;
+    TextInputLayout desc,qty,pri,Dishname,Categorie,Time;
     ImageButton imageButton;
     Uri imageuri;
     String dburi;
     private Uri mCropimageuri;
     Button Update_dish,Delete_dish;
-    String description,quantity,price,dishes,ChefId;
-    String RandomUID;
+    String description,quantity,price,dishes,ChefId,categorie;
+    String RandomUID,time;
     StorageReference ref;
     FirebaseStorage storage;
     StorageReference storageReference;
@@ -79,10 +77,12 @@ public class UpdateDelete_Dish extends AppCompatActivity {
         desc = (TextInputLayout)findViewById(R.id.description);
         qty = (TextInputLayout) findViewById(R.id.Quantity);
         pri = (TextInputLayout)findViewById(R.id.price);
-        Dishname = (TextView)findViewById(R.id.dish_name);
+        Dishname = (TextInputLayout) findViewById(R.id.linear_layout);
+        Categorie=(TextInputLayout) findViewById(R.id.categorie);
         imageButton = (ImageButton) findViewById(R.id.image_upload);
         Update_dish = (Button)findViewById(R.id.Updatedish);
         Delete_dish = (Button)findViewById(R.id.Deletedish);
+        Time=(TextInputLayout)findViewById(R.id.time_to_prepare) ;
         ID = getIntent().getStringExtra("updatedeletedish");
 
         final String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -100,6 +100,11 @@ public class UpdateDelete_Dish extends AppCompatActivity {
                         description = desc.getEditText().getText().toString().trim();
                         quantity = qty.getEditText().getText().toString().trim();
                         price = pri.getEditText().getText().toString().trim();
+                        categorie = Categorie.getEditText().getText().toString().trim();
+                        dishes=Dishname.getEditText().getText().toString().trim();
+                        time=Time.getEditText().getText().toString().trim();
+
+
 
                         if(isValid()){
                             if(imageuri != null){
@@ -154,11 +159,15 @@ public class UpdateDelete_Dish extends AppCompatActivity {
                         UpdateDishModel updateDishModel = snapshot.getValue(UpdateDishModel.class);
                         desc.getEditText().setText(updateDishModel.getDescription());
                         qty.getEditText().setText(updateDishModel.getQuantity());
-                        Dishname.setText("Dish name:"+updateDishModel.getDishes());
                         dishes=updateDishModel.getDishes();
+                        Dishname.getEditText().setText(updateDishModel.getDishes());
+
                         pri.getEditText().setText(updateDishModel.getPrice());
                         Glide.with(UpdateDelete_Dish.this).load(updateDishModel.getImageURL()).into(imageButton);
                         dburi = updateDishModel.getImageURL();
+                        Categorie.getEditText().setText(updateDishModel.getCategorie());
+//                      Time.getEditText().setText(updateDishModel.getTime());
+
                     }
 
                     @Override
@@ -190,7 +199,7 @@ public class UpdateDelete_Dish extends AppCompatActivity {
     private void updatedesc(String buri) {
 
         ChefId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FoodDetails info = new FoodDetails(dishes,quantity,price,description,buri,ID,ChefId);
+        FoodDetails info = new FoodDetails(categorie,dishes,quantity,price,description,buri,ID,ChefId,time);
         firebaseDatabase.getInstance().getReference("FoodDetails").child(City).child(Area)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ID)
                 .setValue(info).addOnCompleteListener(new OnCompleteListener<Void>() {

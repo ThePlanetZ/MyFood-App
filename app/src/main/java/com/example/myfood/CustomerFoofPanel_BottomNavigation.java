@@ -22,6 +22,7 @@ public class CustomerFoofPanel_BottomNavigation extends AppCompatActivity implem
         setContentView(R.layout.activity_customer_foof_panel_bottom_navigation);
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
+
         // Set the default fragment (ChefHomeFragment) when the activity starts
         loadfragment(new CustomerHomeFragment());
 

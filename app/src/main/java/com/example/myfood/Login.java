@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Login extends AppCompatActivity {
 
@@ -125,10 +127,42 @@ public class Login extends AppCompatActivity {
                     String role = snapshot.child("Role").getValue(String.class);
 
                     if ("Customer".equals(role)) {
-                        Toast.makeText(Login.this, "Congratulation! You Have Successfully Logged In", Toast.LENGTH_SHORT).show();
-                        Intent Z = new Intent(Login.this, CustomerFoofPanel_BottomNavigation.class);
-                        startActivity(Z);
-                        finish(); // Finish the current login activity
+
+                        // Fetch the FCM token
+                        FirebaseMessaging.getInstance().getToken()
+                                .addOnCompleteListener(new OnCompleteListener<String>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<String> task) {
+                                        if (task.isSuccessful() && task.getResult() != null) {
+                                            String fcmToken = task.getResult();
+                                            // Store the FCM token under the user node
+                                            userRoleRef.child("token").setValue(fcmToken)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> tokenTask) {
+                                                            if (tokenTask.isSuccessful()) {
+                                                                Log.d("FCM Token", "FCM token stored successfully: " + fcmToken);
+                                                                // Proceed to the Chef Food Panel activity
+                                                                Toast.makeText(Login.this, "Congratulation! You Have Successfully Logged In ", Toast.LENGTH_SHORT).show();
+
+                                                                Intent Z = new Intent(Login.this, CustomerFoofPanel_BottomNavigation.class);
+                                                                startActivity(Z);
+                                                                // Finish the current login activity
+                                                                finish();
+                                                            } else {
+                                                                // Handle token storage failure
+                                                                Log.e("FCM Token", "Failed to store FCM token: " + tokenTask.getException());
+                                                                Toast.makeText(Login.this, "Error: Failed to store FCM token", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+                                        } else {
+                                            // Handle error fetching FCM token
+                                            Log.e("FCM Token", "Failed to fetch FCM token: " + task.getException());
+                                            Toast.makeText(Login.this, "Error: Failed to fetch FCM token", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                     } else if ("Chef".equals(role)) {
                         Toast.makeText(Login.this, "Chefs are not allowed to log in here", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut(); // Sign out the user explicitly
