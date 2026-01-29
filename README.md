@@ -12,7 +12,7 @@ The application allows:
 * Customers to browse meals, place orders, and track deliveries.
 * Delivery persons to accept orders and manage deliveries in real time.
 
-## App Screenshots
+## Some App Screenshots
 
 ![Login](screenshots/img.png)
 
